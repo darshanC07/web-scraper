@@ -1,62 +1,63 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#movies-container {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.movie-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.movie-title {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.review-section {
-  margin-bottom: 10px;
-}
-
-.review-title {
-  font-weight: bold;
-  margin: 5px 0;
-}
-
-.review-content {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-height: 3em;
-  transition: max-height 0.3s ease;
-}
-
-.review-content.expanded {
-  white-space: normal;
-  max-height: none;
-}
-
-.show-more {
-  color: #1e90ff;
-  cursor: pointer;
-  font-size: 0.9em;
-  margin-top: 5px;
-  display: inline-block;
-}
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #movies-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .movie-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .movie-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .review-section {
+    margin-bottom: 10px;
+  }
+  
+  .review-title {
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  
+  .review-content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-height: 3em;
+    transition: max-height 0.3s ease;
+  }
+  
+  .review-content.expanded {
+    white-space: normal;
+    max-height: none;
+  }
+  
+  .show-more {
+    color: #1e90ff;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: inline-block;
+  }
+  

@@ -1,71 +1,85 @@
 // Sample JSON response from the server for a specific movie
-async function main(){
-const response =  await fetch('http://localhost:3000/movieReviews/veerSavarkar');
-const movieData = await response.json();
-
-// Function to create and display a movie card
-function createMovieCard(movie) {
-  const movieCard = document.createElement("div");
-  movieCard.classList.add("movie-card");
-
-  // Title
-  const movieTitle = document.createElement("h2");
-  movieTitle.classList.add("movie-title");
-  movieTitle.textContent = movie.title;
-  movieCard.appendChild(movieTitle);
-
-  // Reviews
-  const reviewsContainer = document.createElement("div");
-  reviewsContainer.classList.add("reviews-container");
-
-  // Show first 4 reviews initially
-  const initialReviewsToShow = 4;
-  movie.reviewTitle.slice(0, initialReviewsToShow).forEach((reviewTitle, index) => {
-    reviewsContainer.appendChild(createReview(reviewTitle, movie.reviews[index]));
-  });
-
-  movieCard.appendChild(reviewsContainer);
-
-  // "See More" button
-  if (movie.reviewTitle.length > initialReviewsToShow) {
-    const seeMoreBtn = document.createElement("button");
-    seeMoreBtn.classList.add("see-more-btn");
-    seeMoreBtn.textContent = "See More";
-    movieCard.appendChild(seeMoreBtn);
-
-    // Expand to show all reviews on click
-    seeMoreBtn.addEventListener("click", () => {
-      reviewsContainer.innerHTML = "";
-      movie.reviewTitle.forEach((reviewTitle, index) => {
-        reviewsContainer.appendChild(createReview(reviewTitle, movie.reviews[index]));
-      });
-      seeMoreBtn.style.display = "none"; // Hide button after expanding
-    });
+async function main() {
+  const movies = ["socialNetwork","sitaRaman","lapataLadies","veerSavarkar","maharaja","article370","manjummelB"]
+  let movieData = []
+  for(let i = 0;i<movies.length;i++){
+    const response = await fetch('http://localhost:3000/movieReviews/'+movies[i]);
+    const Data = await response.json();
+    movieData.push(Data)
   }
 
-  document.getElementById("movies-container").appendChild(movieCard);
-}
-
-// Helper function to create individual review elements
-function createReview(reviewTitle, reviewText) {
-  const reviewDiv = document.createElement("div");
-  reviewDiv.classList.add("review");
-
-  const titleElement = document.createElement("p");
-  titleElement.classList.add("review-title");
-  titleElement.textContent = reviewTitle;
-
-  const textElement = document.createElement("p");
-  textElement.classList.add("review-text");
-  textElement.textContent = reviewText;
-
-  reviewDiv.appendChild(titleElement);
-  reviewDiv.appendChild(textElement);
-
-  return reviewDiv;
-}
-
-// Initialize movie cards (for this example, we only have one movie)
-createMovieCard(movieData);
+  // Function to create and display a movie card
+  function createMovieCards(data) {
+    const container = document.getElementById('movies-container');
+  
+    data.forEach((movie) => {
+      const card = document.createElement('div');
+      card.classList.add('movie-card');
+  
+      const title = document.createElement('h2');
+      title.classList.add('movie-title');
+      title.textContent = movie.title;
+  
+      card.appendChild(title);
+  
+      movie.reviewTitle.slice(0, 4).forEach((reviewTitle, index) => {
+        const reviewSection = document.createElement('div');
+        reviewSection.classList.add('review-section');
+  
+        const reviewTitleElem = document.createElement('div');
+        reviewTitleElem.classList.add('review-title');
+        reviewTitleElem.textContent = reviewTitle;
+  
+        const reviewContent = document.createElement('div');
+        reviewContent.classList.add('review-content');
+        reviewContent.textContent = movie.reviews[index];
+        
+        const showMore = document.createElement('span');
+        showMore.classList.add('show-more');
+        showMore.textContent = 'See More';
+        
+        showMore.addEventListener('click', () => {
+          reviewContent.classList.toggle('expanded');
+          showMore.textContent = reviewContent.classList.contains('expanded') ? 'See Less' : 'See More';
+        });
+  
+        reviewSection.appendChild(reviewTitleElem);
+        reviewSection.appendChild(reviewContent);
+        reviewSection.appendChild(showMore);
+        card.appendChild(reviewSection);
+      });
+  
+      const seeAllButton = document.createElement('button');
+      seeAllButton.textContent = 'See All Reviews';
+      seeAllButton.addEventListener('click', () => {
+        card.innerHTML = '';
+        card.appendChild(title);
+        
+        movie.reviewTitle.forEach((reviewTitle, index) => {
+          const reviewSection = document.createElement('div');
+          reviewSection.classList.add('review-section');
+          
+          const reviewTitleElem = document.createElement('div');
+          reviewTitleElem.classList.add('review-title');
+          reviewTitleElem.textContent = reviewTitle;
+          
+          const reviewContent = document.createElement('div');
+          reviewContent.classList.add('review-content', 'expanded');
+          reviewContent.textContent = movie.reviews[index];
+          
+          reviewSection.appendChild(reviewTitleElem);
+          reviewSection.appendChild(reviewContent);
+          card.appendChild(reviewSection);
+        });
+  
+        card.appendChild(seeAllButton);
+      });
+  
+      card.appendChild(seeAllButton);
+      container.appendChild(card);
+    });
+  }
+  
+  createMovieCards(movieData);
 }
 main();
