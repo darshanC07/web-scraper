@@ -6,14 +6,13 @@ const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
-app.use(cors({
-    origin: 'http://localhost:5500' 
-}));
+app.use(cors());
 
-const URL = "https://letterboxd.com/film/dilwale-2015/"
+const dilwaleURL = "https://letterboxd.com/film/dilwale-2015/"
+const socialNetwork = "https://www.imdb.com/title/tt1285016/reviews/?ref_=tt_ov_urv"
 
 app.get('/movieDetails',async (req,res) =>{
-    const html = await fetch(URL).then(response => response.text()).then((html) => { return html });
+    let html = await fetch(dilwaleURL).then(response => response.text()).then((html) => { return html });
 
     let $ = cheerio.load(html)
 
@@ -30,14 +29,12 @@ app.get('/movieDetails',async (req,res) =>{
 
     let reviews = [];
     let count = $('div[class="body-text -prose collapsible-text"] > p').length ; 
-    // for(let i = 0;i<count;i++){
 
-    // }
     $('div[class="body-text -prose collapsible-text"] > p').each((i,elem)=>{
         let review = $(elem).text();
         reviews.push(review)
     })
-    console.log(reviews)
+    // console.log(reviews)
     res.send({
         "title":title,
         "desc":desc,
@@ -45,6 +42,34 @@ app.get('/movieDetails',async (req,res) =>{
         "releaseYear":releaseYear,
         "casts" : castList
     })
+})
+
+app.get('/movieReviews',async (req,res)=>{
+    let html = await fetch(socialNetwork).then(response => response.text()).then((html) => { return html });
+
+    let $ = cheerio.load(html)
+    
+    let title = $('h2[class="sc-b8cc654b-9 dmvgRY"]').text()
+    let reviewsTitle = [];
+    let reviews = [];
+    //for getting all review titles 
+    $('article[class="sc-f53ace6f-1 cHwTOl user-review-item"]>div>div>div[class="sc-a2ac93e5-5 feMBGz"]>div>a>h3').each((i,elem)=>{
+        let reviewTitle = $(elem).text()
+        reviewsTitle.push(reviewTitle)
+    })
+
+    //for getting actual review text
+    $('div[class="ipc-html-content-inner-div"]').each((i,elem)=>{
+        let reviewText = $(elem).text()
+        // console.log(reviewText)
+        reviews.push(reviewText)
+    })
+    res.send({
+        "title" : title,
+        "reviewTitle" : reviewsTitle,
+        "reviews" : reviews
+    }
+    )
 })
 
 app.listen(PORT,()=>{
