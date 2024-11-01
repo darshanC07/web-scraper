@@ -10,25 +10,40 @@ app.use(cors({
     origin: 'http://localhost:5500' 
 }));
 
-const URL = "https://www.imdb.com/title/tt4535650/?ref_=fn_al_tt_1"
+const URL = "https://letterboxd.com/film/dilwale-2015/"
 
 app.get('/movieDetails',async (req,res) =>{
     const html = await fetch(URL).then(response => response.text()).then((html) => { return html });
 
     let $ = cheerio.load(html)
 
-    let title = $('span[class="hero__primary-text"]').text()
-    let rating = $('span[class="sc-d541859f-1 imUuxf"]').text()
-    let categories = $('span[class="ipc-chip__text"]').text()
-    let desc = $('p[class="sc-fbb3c9a4-3 imgRSe"]>span[class="sc-fbb3c9a4-1 caMeWq"]').text()
-    let director = $('a[class="ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link"]').text()
-    
+    const title = $('h1[class="headline-1 filmtitle"]>span').text()
+    const rating = $('a.display-rating').text()
+    const releaseYear = $('div.releaseyear > a').text()
+    let desc = $('div[class="truncate"]>p').text()
+    let director = $('a[class="contributor"]>span').text()
+    let castList = [];
+        $('div.cast-list.text-sluglist a.text-slug').each((i, elem) => {
+            const actor = $(elem).text();
+            castList.push(actor);
+        });
+
+    let reviews = [];
+    let count = $('div[class="body-text -prose collapsible-text"] > p').length ; 
+    // for(let i = 0;i<count;i++){
+
+    // }
+    $('div[class="body-text -prose collapsible-text"] > p').each((i,elem)=>{
+        let review = $(elem).text();
+        reviews.push(review)
+    })
+    console.log(reviews)
     res.send({
         "title":title,
-        "rating":rating,
-        "categories":categories,
         "desc":desc,
-        "director":director
+        "director":director,
+        "releaseYear":releaseYear,
+        "casts" : castList
     })
 })
 
