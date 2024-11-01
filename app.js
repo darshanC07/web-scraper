@@ -3,7 +3,7 @@ async function main() {
   let movieData = [];
   
   for (let i = 0; i < movies.length; i++) {
-    const response = await fetch('http://localhost:3000/movieReviews/' + movies[i]);
+    const response = await fetch('http://127.0.0.1:3000/movieReviews/' + movies[i]);
     const data = await response.json();
     movieData.push(data);
   }
