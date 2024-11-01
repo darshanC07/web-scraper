@@ -40,7 +40,7 @@ async function main() {
         
         showMoreButton.addEventListener('click', () => {
           reviewContent.classList.toggle('expanded');
-          showMoreButton.textContent = reviewContent.classList.contains('expanded') ? 'Show More' : 'Show Less';
+          showMoreButton.textContent = reviewContent.classList.contains('expanded') ? 'Show Less' : 'Show More';
         });
         
         reviewSection.appendChild(reviewTitleElem);
