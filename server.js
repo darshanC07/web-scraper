@@ -11,6 +11,11 @@ app.use(cors());
 const dilwaleURL = "https://letterboxd.com/film/dilwale-2015/"
 const socialNetwork = "https://www.imdb.com/title/tt1285016/reviews/?ref_=tt_ov_urv"
 const sitaRaman = "https://www.imdb.com/title/tt20850406/reviews/?ref_=tt_ov_urv"
+const lapataLadies = "https://www.imdb.com/title/tt21626284/reviews/?ref_=tt_ov_urv"
+const veerSavarkar = "https://www.imdb.com/title/tt14753612/reviews/?ref_=tt_ov_urv"
+const maharaja = "https://www.imdb.com/title/tt26548265/reviews/?ref_=tt_ov_urv"
+const article370 = "https://www.imdb.com/title/tt30970235/reviews/?ref_=tt_ov_urv"
+const manjummelB = "https://www.imdb.com/title/tt26458038/reviews/?ref_=tt_ov_urv"
 
 function getData(html){
     let $ = cheerio.load(html)
@@ -81,6 +86,37 @@ app.get('/movieReviews/socialNetwork',async (req,res)=>{
 
 app.get('/movieReviews/sitaRaman',async (req,res)=>{
     let html = await fetch(sitaRaman).then(response => response.text()).then((html) => { return html });
+
+    let data = getData(html)
+    res.send(data)
+})
+
+app.get('/movieReviews/lapataLadies',async (req,res)=>{
+    let html = await fetch(lapataLadies).then(response => response.text()).then((html) => { return html });
+
+    let data = getData(html)
+    res.send(data)
+})
+app.get('/movieReviews/veerSavarkar',async (req,res)=>{
+    let html = await fetch(veerSavarkar).then(response => response.text()).then((html) => { return html });
+
+    let data = getData(html)
+    res.send(data)
+})
+app.get('/movieReviews/article370',async (req,res)=>{
+    let html = await fetch(article370).then(response => response.text()).then((html) => { return html });
+
+    let data = getData(html)
+    res.send(data)
+})
+app.get('/movieReviews/manjummelB',async (req,res)=>{
+    let html = await fetch(manjummelB).then(response => response.text()).then((html) => { return html });
+
+    let data = getData(html)
+    res.send(data)
+})
+app.get('/movieReviews/maharaja',async (req,res)=>{
+    let html = await fetch(maharaja).then(response => response.text()).then((html) => { return html });
 
     let data = getData(html)
     res.send(data)
