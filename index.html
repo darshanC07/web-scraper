@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEB-SCRAPER</title>
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Web Scraper</h1>
-    <button onclick="fetchMovies()">Fetch Movies</button>
-    <h2 id="data"></h2>
+    <div class="container">
+        <div class="movie-card">
+            <h1 id="title"></h1>
+            <p id="releaseYear"></p>
+            <h3>Directed by <span id="director"></span></h3>
+            <p id="desc"></p>
+            <h4>Cast</h4>
+            <ul id="castList"></ul>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>

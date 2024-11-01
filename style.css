@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns card to the top for full visibility */
+    min-height: 100vh;
+    background: #f2f2f2;
+    padding: 20px; /* Adds padding to avoid overflow on smaller screens */
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.movie-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Adds top margin to create space from the top edge */
+}
+
+.movie-card h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.movie-card #releaseYear {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.movie-card h3 {
+    font-size: 18px;
+    color: #444;
+    margin-top: 10px;
+}
+
+.movie-card h4 {
+    font-size: 18px;
+    color: #444;
+    margin-top: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.movie-card p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.movie-card ul {
+    list-style: none;
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+.movie-card ul li {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.movie-card ul li:hover {
+    background-color: darkgrey;
+    transform: translateY(-2px);
+}
