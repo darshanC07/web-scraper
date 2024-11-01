@@ -10,6 +10,34 @@ app.use(cors());
 
 const dilwaleURL = "https://letterboxd.com/film/dilwale-2015/"
 const socialNetwork = "https://www.imdb.com/title/tt1285016/reviews/?ref_=tt_ov_urv"
+const sitaRaman = "https://www.imdb.com/title/tt20850406/reviews/?ref_=tt_ov_urv"
+
+function getData(html){
+    let $ = cheerio.load(html)
+    
+    let title = $('h2[class="sc-b8cc654b-9 dmvgRY"]').text()
+    let reviewsTitle = [];
+    let reviews = [];
+
+    //for getting all review titles 
+    $('article[class="sc-f53ace6f-1 cHwTOl user-review-item"]>div>div>div[class="sc-a2ac93e5-5 feMBGz"]>div>a>h3').each((i,elem)=>{
+        let reviewTitle = $(elem).text()
+        reviewsTitle.push(reviewTitle)
+    })
+
+    //for getting actual review text
+    $('div[class="ipc-html-content-inner-div"]').each((i,elem)=>{
+        let reviewText = $(elem).text()
+        // console.log(reviewText)
+        reviews.push(reviewText)
+    })
+
+    return {
+        "title" : title,
+        "reviewTitle" : reviewsTitle,
+        "reviews" : reviews
+    }
+}
 
 app.get('/movieDetails',async (req,res) =>{
     let html = await fetch(dilwaleURL).then(response => response.text()).then((html) => { return html });
@@ -44,32 +72,18 @@ app.get('/movieDetails',async (req,res) =>{
     })
 })
 
-app.get('/movieReviews',async (req,res)=>{
+app.get('/movieReviews/socialNetwork',async (req,res)=>{
     let html = await fetch(socialNetwork).then(response => response.text()).then((html) => { return html });
 
-    let $ = cheerio.load(html)
-    
-    let title = $('h2[class="sc-b8cc654b-9 dmvgRY"]').text()
-    let reviewsTitle = [];
-    let reviews = [];
-    //for getting all review titles 
-    $('article[class="sc-f53ace6f-1 cHwTOl user-review-item"]>div>div>div[class="sc-a2ac93e5-5 feMBGz"]>div>a>h3').each((i,elem)=>{
-        let reviewTitle = $(elem).text()
-        reviewsTitle.push(reviewTitle)
-    })
+    let data = getData(html)
+    res.send(data)
+})
 
-    //for getting actual review text
-    $('div[class="ipc-html-content-inner-div"]').each((i,elem)=>{
-        let reviewText = $(elem).text()
-        // console.log(reviewText)
-        reviews.push(reviewText)
-    })
-    res.send({
-        "title" : title,
-        "reviewTitle" : reviewsTitle,
-        "reviews" : reviews
-    }
-    )
+app.get('/movieReviews/sitaRaman',async (req,res)=>{
+    let html = await fetch(sitaRaman).then(response => response.text()).then((html) => { return html });
+
+    let data = getData(html)
+    res.send(data)
 })
 
 app.listen(PORT,()=>{
