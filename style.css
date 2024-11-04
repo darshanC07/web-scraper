@@ -1,7 +1,7 @@
 /* General styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #f5f6fa;
     margin: 0;
     padding: 0;
     display: flex;
@@ -32,13 +32,13 @@ body {
 .review-title {
     font-size: 1.2em;
     font-weight: bold;
-    color: #3498db;
+    color: #0984e3;
 }
 
 /* Review text styling */
 .review-text {
     font-size: 0.95em;
-    color: #555;
+    color: #2d3436;
     line-height: 1.5em;
     overflow: hidden;
     max-height: 4.5em; /* 3 lines (3 x 1.5em) */
@@ -73,8 +73,19 @@ body {
 
 /* For the expanded state */
 .review-text.expanded {
-  max-height: none; /* Allow full height when expanded */
+  max-height: none;
 }
+
+.review-section{
+    background-color: #dfe6e9;
+    margin-bottom: 10px;
+    /* padding: 5px; */
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
