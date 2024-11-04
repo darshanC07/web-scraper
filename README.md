@@ -1,5 +1,6 @@
 # Web Scraper - Film Review
-This is simple web scraping tool built by me to scrape film reviews from imdb websites. For frontend, I used HTML,CSS ,JS and for backend - Node.js. To create web application, i used express.js 
+This is simple web scraping tool built by me to scrape film reviews from IMDb websites. For front end, I used HTML,CSS, JS, and for back end - Node.js. To create web application, i used express.js. <br>
+The website is live on [https://darshanc07.github.io/web-scraper/](https://darshanc07.github.io/web-scraper/)
 # Demo
 https://github.com/user-attachments/assets/193097f2-e525-4d0d-a161-ec2f27a338eb
 # Installation
@@ -22,5 +23,5 @@ node server.js
 
 # Feedback
 I hope you liked this film review web scraping tool. <br>
-If you have any querries/issues, please reach out to me at darshanchoudhary2007@gmail.com.
+If you have any queries/issues, please reach out to me at darshanchoudhary2007@gmail.com.
 Also please provide your valuable feedback.
