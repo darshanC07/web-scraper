@@ -1,12 +1,6 @@
-/* General styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f6fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
+
+
+
 
 /* Movie card styling */
 .movie-card {
