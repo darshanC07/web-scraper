@@ -1,19 +1,28 @@
 async function getMovie() {
+  const container = document.getElementById('movies-container');
+  let childCount = container.childElementCount //check if alr theres a movie review displayed
+  if (childCount > 0) {
+    container.removeChild(container.firstChild)
+  }
+
+  let loader = document.createElement("div")
+  loader.classList.add('loader')
+  container.appendChild(loader)
+
   let input = document.getElementById("movie-name")
   // console.log(input.value)
   let movie = input.value
   let movieNameArray = movie.split(" ")
-  let movieName = movieNameArray[0];
+  let movieName = movieNameArray[0].toLowerCase();
   for (let i = 1; i < movieNameArray.length; i++) {
-    let nextWord = movieNameArray[i].charAt(0).toUpperCase() + movieNameArray[i].slice(1)
+    let nextWord = movieNameArray[i].charAt(0).toUpperCase() + movieNameArray[i].slice(1).toLowerCase()
     movieName = movieName + nextWord
   }
   console.log(movieName)
-  
+
   const response = await fetch('https://web-scraper-flax.vercel.app/movieReviews/' + movieName);
   const data = await response.json();
 
-  const container = document.getElementById('movies-container');
   const card = document.createElement('div');
   card.classList.add('movie-card');
 
@@ -50,11 +59,21 @@ async function getMovie() {
     card.appendChild(reviewSection);
   });
 
+  
+
+  container.removeChild(loader)
   container.appendChild(card);
+
+
 }
 
 
 async function allMovies() {
+  const container = document.getElementById('movies-container');
+  let loader = document.createElement("div")
+  loader.classList.add('loader')
+  container.appendChild(loader)
+
   const movies = ["socialNetwork", "sitaRaman", "lapataLadies", "veerSavarkar", "maharaja", "article370", "manjummelB"];
   let movieData = [];
 
@@ -66,8 +85,6 @@ async function allMovies() {
 
   // Function to create and display a movie card
   function createMovieCards(data) {
-    const container = document.getElementById('movies-container');
-
     data.forEach((movie) => {
       const card = document.createElement('div');
       card.classList.add('movie-card');
@@ -110,6 +127,6 @@ async function allMovies() {
   }
 
   createMovieCards(movieData);
+  container.removeChild(loader)
 }
 
-// allMovies();

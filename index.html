@@ -6,13 +6,34 @@
     <title>Film Reviews</title>
     <script src="app.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #movies-container {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+    </style>
 </head>
-<body>
-    <center><h1 id="page-title">Film Reviews</h1>
-    <h3 id="page-desc">This is simple web scraping tool build by Darshan. It scrapes movie reviews from IMDb website</h3></center>
-    <label>Enter Movie Name : </label>
-    <input type="text" id="movie-name">
-    <button onclick="getMovie()">Search</button>
+
+<body bgcolor="#f5f6fa">
+    <center>
+        <h1 id="page-title">Film Reviews</h1>
+        <h3 id="page-desc">
+            This is a simple web scraping tool built by Darshan. It scrapes movie reviews from IMDb.
+            A Node.js backend scrapes reviews from movie links provided and sends them in response.
+        </h3>
+    </center>
+    
+    <div class="search-container">
+        <label for="movie-name">Enter Movie Name:</label>
+        <input type="text" id="movie-name" placeholder="e.g., Sita Raman">
+        <button onclick="getMovie()" class="search-button">Search</button>
+    </div>
+    
+    <h2 id="all-movies"><a href="allMovies.html"><button>Get All Movies</button></a></h2>
     <div id="movies-container"></div>
 </body>
 </html>
