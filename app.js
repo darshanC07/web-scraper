@@ -1,7 +1,63 @@
-async function main() {
-  const movies = ["socialNetwork","sitaRaman","lapataLadies","veerSavarkar","maharaja","article370","manjummelB"];
-  let movieData = [];
+async function getMovie() {
+  let input = document.getElementById("movie-name")
+  // console.log(input.value)
+  let movie = input.value
+  let movieNameArray = movie.split(" ")
+  let movieName = movieNameArray[0];
+  for (let i = 1; i < movieNameArray.length; i++) {
+    let nextWord = movieNameArray[i].charAt(0).toUpperCase() + movieNameArray[i].slice(1)
+    movieName = movieName + nextWord
+  }
+  console.log(movieName)
   
+  const response = await fetch('https://web-scraper-flax.vercel.app/movieReviews/' + movieName);
+  const data = await response.json();
+
+  const container = document.getElementById('movies-container');
+  const card = document.createElement('div');
+  card.classList.add('movie-card');
+
+  const title = document.createElement('h2');
+  title.classList.add('movie-title');
+  title.textContent = data.title;
+  card.appendChild(title);
+
+  data.reviewTitle.slice(0, 4).forEach((reviewTitle, index) => {
+    const reviewSection = document.createElement('div');
+    reviewSection.classList.add('review-section');
+
+    const reviewTitleElem = document.createElement('div');
+    reviewTitleElem.classList.add('review-title');
+    reviewTitleElem.textContent = reviewTitle;
+
+    const reviewContent = document.createElement('p');
+    reviewContent.classList.add('review-text', 'truncated');
+    reviewContent.textContent = data.reviews[index];
+
+    // Show More/Less Button
+    const showMoreButton = document.createElement('button');
+    showMoreButton.classList.add('show-more');
+    showMoreButton.textContent = 'Show More';
+
+    showMoreButton.addEventListener('click', () => {
+      reviewContent.classList.toggle('expanded');
+      showMoreButton.textContent = reviewContent.classList.contains('expanded') ? 'Show Less' : 'Show More';
+    });
+
+    reviewSection.appendChild(reviewTitleElem);
+    reviewSection.appendChild(reviewContent);
+    reviewSection.appendChild(showMoreButton);
+    card.appendChild(reviewSection);
+  });
+
+  container.appendChild(card);
+}
+
+
+async function allMovies() {
+  const movies = ["socialNetwork", "sitaRaman", "lapataLadies", "veerSavarkar", "maharaja", "article370", "manjummelB"];
+  let movieData = [];
+
   for (let i = 0; i < movies.length; i++) {
     const response = await fetch('https://web-scraper-flax.vercel.app/movieReviews/' + movies[i]);
     const data = await response.json();
@@ -11,7 +67,7 @@ async function main() {
   // Function to create and display a movie card
   function createMovieCards(data) {
     const container = document.getElementById('movies-container');
-    
+
     data.forEach((movie) => {
       const card = document.createElement('div');
       card.classList.add('movie-card');
@@ -24,7 +80,7 @@ async function main() {
       movie.reviewTitle.slice(0, 4).forEach((reviewTitle, index) => {
         const reviewSection = document.createElement('div');
         reviewSection.classList.add('review-section');
-        
+
         const reviewTitleElem = document.createElement('div');
         reviewTitleElem.classList.add('review-title');
         reviewTitleElem.textContent = reviewTitle;
@@ -32,28 +88,28 @@ async function main() {
         const reviewContent = document.createElement('p');
         reviewContent.classList.add('review-text', 'truncated');
         reviewContent.textContent = movie.reviews[index];
-        
+
         // Show More/Less Button
         const showMoreButton = document.createElement('button');
         showMoreButton.classList.add('show-more');
         showMoreButton.textContent = 'Show More';
-        
+
         showMoreButton.addEventListener('click', () => {
           reviewContent.classList.toggle('expanded');
           showMoreButton.textContent = reviewContent.classList.contains('expanded') ? 'Show Less' : 'Show More';
         });
-        
+
         reviewSection.appendChild(reviewTitleElem);
         reviewSection.appendChild(reviewContent);
         reviewSection.appendChild(showMoreButton);
         card.appendChild(reviewSection);
       });
-      
+
       container.appendChild(card);
     });
   }
-  
+
   createMovieCards(movieData);
 }
 
-main();
+// allMovies();
