@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie Reviews</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Reviews</title>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="movies-container">
-  </div>
-  <script src="app.js"></script>
+    <center><h1 id="page-title">Film Reviews</h1>
+    <h3 id="page-desc">This is simple web scraping tool build by Darshan. It scrapes movie reviews from IMDb website</h3></center>
+    <label>Enter Movie Name : </label>
+    <input type="text" id="movie-name">
+    <button onclick="getMovie()">Search</button>
+    <div id="movies-container"></div>
 </body>
 </html>
